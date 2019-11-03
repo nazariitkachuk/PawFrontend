@@ -1,0 +1,37 @@
+header{
+    height: 1.5em;
+    background: rgba(0, 0, 0, .32);
+    padding: 0.5em;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+}
+
+.imageWithBorder{
+    width: 1em;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: thin;
+    padding: 0.1em;
+    margin: 0.2em;
+}
+
+.imageWithBorder:hover {
+    background-color: rgba(0, 0, 0, .32);
+}
+
+.floatLeft{
+    float: left;
+}
+
+.floatRight{
+    float: right;
+}
+
+.websiteNameLable{
+    margin: 0.2em;
+    padding: 0.2em;
+    text-align: center;
+    font-size: 20px;
+}
+  
