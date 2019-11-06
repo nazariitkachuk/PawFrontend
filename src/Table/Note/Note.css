@@ -1,0 +1,9 @@
+.note{
+    border: solid;
+    border-width: thin;
+    padding: 5px;
+    margin: 5px;
+    background-color:  rgb(200, 200, 200);
+    word-break: break-word;
+    white-space: normal;
+}

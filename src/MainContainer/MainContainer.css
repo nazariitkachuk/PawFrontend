@@ -1,0 +1,6 @@
+.mainContainer{
+    white-space: nowrap;
+    display: flex;
+    overflow-x: auto;
+    height: fit-content;
+}

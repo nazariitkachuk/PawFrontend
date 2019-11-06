@@ -7,6 +7,6 @@ import './index.css';
 var elements = [<Header />, <MainContainer />];
 
 ReactDOM.render(
-elements,
+    elements,
     document.getElementById('root')
 );

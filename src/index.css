@@ -1,5 +1,13 @@
 body{
-    background-image: url("http://inn.spb.ru/images/500/DSC100583323.jpg");
+    /* background-image: url("http://inn.spb.ru/images/500/DSC100583323.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100vh; */
+    height: 100%;
+    /* position: relative; */
+    background-color: 	#f0f0f0;
+}
+
+html{
+    height: 98%;
+    /* position: relative; */
 }
