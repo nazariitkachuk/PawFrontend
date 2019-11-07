@@ -1,0 +1,11 @@
+.table{
+    width: 97%;
+    background-color:  rgba(175, 175, 175);
+    margin: 10px 0 0 0;
+    padding: 3px;
+    word-break: break-all;
+}
+
+.table:hover{
+    background-color:  rgba(200, 200, 200);
+}

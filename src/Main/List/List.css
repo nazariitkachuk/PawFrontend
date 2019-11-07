@@ -1,4 +1,6 @@
-.note{
+.list{
+    float: left;
+    min-width: 200px;
     border: solid;
     border-width: thin;
     padding: 5px;

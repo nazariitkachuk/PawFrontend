@@ -1,0 +1,13 @@
+.addNewTable{
+    margin: 10px 0 0 0;
+}
+
+#newTableNameInput{
+    float: left;
+    width: 70%;
+}
+
+#newTableNameSubmitButton{
+    float: left;
+    width: 27%;
+}

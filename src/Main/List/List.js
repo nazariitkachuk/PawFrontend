@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Note.css";
+import "./List.css";
 
 export default class Note extends React.Component{
     
@@ -7,6 +7,6 @@ export default class Note extends React.Component{
     name = this.props.name;
 
     render(){
-        return React.createElement("div", {class: "note"}, this.name);
+        return React.createElement("div", {class: "list"}, this.name);
     }
 }
