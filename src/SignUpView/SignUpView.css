@@ -1,4 +1,4 @@
-.loginWrapper{
+.signUpWrapper{
     width: fit-content;
     display: grid;
     margin: auto;
@@ -15,12 +15,12 @@
     margin: 0.5em;
 }
 
-#labelSignUp{
+#labelLogIn{
     width: 95%;
     text-align: right;
     font-size: 1.3em;
 }
 
-#labelSignUp:hover{
+#labelLogIn:hover{
     color: red;
 }
