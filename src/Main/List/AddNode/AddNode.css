@@ -1,0 +1,12 @@
+.addNewNodeWrapper{
+    width: 100%;
+    padding: 0.3em;
+}
+
+#newNodeTitleInput{
+    width: 70%;
+}
+
+#newNodeAddButton{
+    width: 24%;
+}
