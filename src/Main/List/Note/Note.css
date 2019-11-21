@@ -1,0 +1,61 @@
+.noteWrapper{
+    background-color:  rgb(175, 175, 175);
+    margin: 0.5em 0.1em 0.1em 0.1em;
+    font-size: 1.2em;
+}
+
+.noteTitle{
+    border: solid;
+    border-width: thin;
+    padding: 0.5em;
+    font-size: 1.2em;
+}
+
+.noteContent{
+    border: solid;
+    border-width: thin;
+    padding: 0.5em;
+}
+
+.deleteAndEditWrapper{
+    font-size: 0.6em;
+    float: right;
+}
+
+.labelOnHover:hover{
+    color: red;
+}
+
+.popupWrapper{
+    background-color: white;
+    width: 20em;
+    margin: 5em auto auto auto;
+}
+
+.popup{
+    height: 15em;
+}
+
+.popupLabel{
+    margin: 0 1em 0 1em;
+    font-size: 1.3em;
+}
+
+.popupInput{
+    padding: 0.3em;
+    font-size: 1.2em;
+    min-width: 97%;
+    max-width: 97%;
+    resize: none;
+}
+
+.popupButton{
+    width: 50%;
+    height: 2em;
+    font-size: 1.3em;
+    margin-top: -5px;
+}
+
+#inputContent{
+    height: 8em;
+}

@@ -11,3 +11,8 @@ html{
     height: 98%;
     /* position: relative; */
 }
+
+#popupContainer{
+    position: fixed;
+    width: 100%;
+}

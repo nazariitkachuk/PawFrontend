@@ -16,9 +16,9 @@ export default class RESTrequests{
         request.onload = function() {
             var data = JSON.parse(this.response);
             console.log("cookie: " + data.access_token);
-            if(data.httpCode == 200){
+            if(data.httpCode === 200){
                 ReactDOM.unmountComponentAtNode(document.getElementById("root"));
-                var elements = [<Header />, <MainContainer />];
+                var elements = [<Header />, React.createElement("div", {id: "popupContainer"}), <MainContainer />];
                 ReactDOM.render(elements, document.getElementById("root"));
             }else {
                 alert(data.message);
@@ -36,7 +36,7 @@ export default class RESTrequests{
         
         request.onload = function() {
             var data = JSON.parse(this.response);
-            if(data.httpCode == 201){
+            if(data.httpCode === 201){
                 alert(data.message);
                 ReactDOM.unmountComponentAtNode(document.getElementById("root"));
                 ReactDOM.render(<LoginView />, document.getElementById("root"));

@@ -1,5 +1,6 @@
 import React from 'react';
 import AddNewList from './AddNewList/AddNewList.js';
+import List from './List/List.js';
 import "./Main.css";
 import RESTrequests from '../RESTrequests.js';
 
@@ -9,6 +10,10 @@ export default class Main extends React.Component{
     
     render(){
         var tables = [];
+
+        tables = [<List id = "0" name = "ListMock0" />,
+                    <List id = "1" name = "ListMock1" />,
+                    <List id = "2" name = "ListMock2" />]
 
         // var request = new XMLHttpRequest();
         // request.open('GET', 'https://pawbackend.herokuapp.com/table/'+this.id+'/list', false);

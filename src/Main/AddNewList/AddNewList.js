@@ -9,8 +9,8 @@ export default class AddNewList extends React.Component{
 
     render(){
         return React.createElement("div", {class: "addNewList"},
-                    React.createElement("input", {type: "text", id: "newListNameInput"}),
+                    React.createElement("input", {type: "text", id: "newListNameInput", class: "newListNameClass"}),
                     React.createElement("input", {type: "submit", value: "Add", 
-                        id: "newListNameSubmitButton", onClick: () => RESTrequests.addNewList(this.id, document.getElementById("newListNameInput").value)}));
+                        id: "newListNameSubmitButton", class: "newListNameSubmitButtonClass", onClick: () => RESTrequests.addNewList(this.id, document.getElementById("newListNameInput").value)}));
     }
 }
