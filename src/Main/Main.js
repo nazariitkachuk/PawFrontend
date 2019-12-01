@@ -8,7 +8,7 @@ export default class Main extends React.Component{
     id = this.props.id;
     
     render(){
-        var tables = RESTrequests.getLists(this.id);
+        var lists = RESTrequests.getLists(this.id);
 
         
         return React.createElement("div", {id: "Main"},
@@ -17,6 +17,6 @@ export default class Main extends React.Component{
                         React.createElement("input", {id: "changeNameSubmitButton", type: "submit", 
                             value: "Change table name", 
                             onClick: () => RESTrequests.updateTableName(this.id, document.getElementById("changeNameInput").value)})), 
-                    React.createElement("div", {id: "listWrapper"}, tables, <AddNewList id = {this.id} />));
+                    React.createElement("div", {id: "listWrapper"}, lists, <AddNewList id = {this.id} />));
     }
 }

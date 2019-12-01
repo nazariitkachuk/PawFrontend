@@ -7,6 +7,7 @@ import LoginView from './LoginView/LoginView.js';
 import Main from './Main/Main.js';
 import List from './Main/List/List.js';
 import Table from './TableList/Table/Table.js';
+import Note from './Main/List/Note/Note.js';
 
 export default class RESTrequests{
 
@@ -80,16 +81,24 @@ export default class RESTrequests{
 
     static updateTableName(tableId, tableNewName){
         if(tableNewName !== ""){
-            var data = JSON.stringify({"id": tableId, "name": tableNewName});
+            var data = JSON.stringify({"tableId": tableId, "name": tableNewName});
 
-            fetch('https://pawbackend.herokuapp.com/table/' + tableId, {
-                method: 'POST',
-                body: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': RESTrequests.authorization
-                }
-            });
+            // fetch('https://pawbackend.herokuapp.com/table/' + tableId, {
+            //     method: 'PUT',
+            //     body: data,
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': RESTrequests.authorization
+            //     }
+            // });
+
+            var request = new XMLHttpRequest();
+            request.open('PUT', 'https://pawbackend.herokuapp.com/table/' + tableId, false);
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.setRequestHeader('Authorization', RESTrequests.authorization);
+
+            request.send(data);
+            
         }
 
         if(document.getElementById("tableWrapper")){
@@ -182,10 +191,35 @@ export default class RESTrequests{
             var data = JSON.parse(this.responseText)
 
             data.forEach(element => {
-                lists.push(<List id = {element.id} name = {element.name} />)
+                console.log(element);
+                lists.push(<List tableId = {tableId} id = {element.listId} name = {element.name} />)
             });
         }
 
         request.send();
+
+        return lists;
+    }
+
+    static getCards(tableId, listId){
+        var cards = [];
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', RESTrequests.authorization);
+        
+        request.onload = function(){
+            var data = JSON.parse(this.responseText);
+
+            data.forEach(element => {
+                console.log(element);
+                cards.push(<Note tableId = {tableId} listId = {listId} id = {element.cardId}  title = {element.name} content = {element.description}/>);
+            });
+        }
+
+        request.send();
+
+        return cards;
     }
 }

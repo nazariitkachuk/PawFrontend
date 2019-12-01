@@ -4,6 +4,8 @@ import "./Note.css";
 
 export default class Note extends React.Component{
 
+    tableId = this.props.tableId;
+    listId = this.props.listId;
     id = this.props.id;
     title = this.props.title;
     content = this.props.content;
