@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "./Note.css";
+import RESTrequests from '../../../RESTrequests';
 
 export default class Note extends React.Component{
 
@@ -45,9 +46,11 @@ export default class Note extends React.Component{
         return React.createElement("div", {class: "noteWrapper"}, 
                     React.createElement("div", {class: "noteTitle"}, this.title,
                         React.createElement("div", {class: "deleteAndEditWrapper"},
-                            React.createElement("label", {class: "noteDeleteLabel labelOnHover"}, "X"),
+                            React.createElement("label", {class: "noteDeleteLabel labelOnHover",
+                                onClick: () => RESTrequests.deleteCard(this.tableId, this.listId, this.id)}, "X"),
                             React.createElement("br", null, null),
-                            React.createElement("label", {class: "noteEditLabel labelOnHover", onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"))),
+                            React.createElement("label", {class: "noteEditLabel labelOnHover", 
+                                onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"))),
                     React.createElement("div", {class: "noteContent"}, this.content));
     }
 }

@@ -70,41 +70,42 @@ export default class RESTrequests{
                     'Content-Type': 'application/json',
                     'Authorization': RESTrequests.authorization
                 }
+            }).then(response => {
+                if(document.getElementById("tableWrapper")){
+                    ReactDOM.unmountComponentAtNode(document.getElementById("tableWrapper"));
+                }
+                ReactDOM.render(<TableList />, document.getElementById("tableWrapper"));
             });
         }
-
-        if(document.getElementById("tableWrapper")){
-            ReactDOM.unmountComponentAtNode(document.getElementById("tableWrapper"));
-        }
-        ReactDOM.render(<TableList />, document.getElementById("tableWrapper"));
     }
 
     static updateTableName(tableId, tableNewName){
         if(tableNewName !== ""){
             var data = JSON.stringify({"tableId": tableId, "name": tableNewName});
 
-            // fetch('https://pawbackend.herokuapp.com/table/' + tableId, {
-            //     method: 'PUT',
-            //     body: data,
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': RESTrequests.authorization
-            //     }
-            // });
+            fetch('https://pawbackend.herokuapp.com/table/' + tableId, {
+                method: 'PUT',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': RESTrequests.authorization
+                }
+            }).then(response => {
+                if(document.getElementById("tableWrapper")){
+                    ReactDOM.unmountComponentAtNode(document.getElementById("tableWrapper"));
+                }
+                ReactDOM.render(<TableList />, document.getElementById("tableWrapper"));
+            });
 
-            var request = new XMLHttpRequest();
-            request.open('PUT', 'https://pawbackend.herokuapp.com/table/' + tableId, false);
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.setRequestHeader('Authorization', RESTrequests.authorization);
+            // var request = new XMLHttpRequest();
+            // request.open('PUT', 'https://pawbackend.herokuapp.com/table/' + tableId, false);
+            // request.setRequestHeader('Content-Type', 'application/json');
+            // request.setRequestHeader('Authorization', RESTrequests.authorization);
 
-            request.send(data);
+            // request.send(data);
             
         }
 
-        if(document.getElementById("tableWrapper")){
-            ReactDOM.unmountComponentAtNode(document.getElementById("tableWrapper"));
-        }
-        ReactDOM.render(<TableList />, document.getElementById("tableWrapper"));
     }
 
     static addNewList(tableId, listName){
@@ -118,15 +119,13 @@ export default class RESTrequests{
                     'Content-Type': 'application/json',
                     'Authorization': RESTrequests.authorization
                 }
+            }).then(response => {
+                if(document.getElementById("Main")){
+                    ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+                }
+                ReactDOM.render(<Main />, document.getElementById("MainContainer"));
             });
-
-            var request = new XMLHttpRequest();
         }
-
-        if(document.getElementById("Main")){
-            ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
-        }
-        ReactDOM.render(<Main />, document.getElementById("MainContainer"));
     }
 
     static getTables(){
@@ -221,5 +220,39 @@ export default class RESTrequests{
         request.send();
 
         return cards;
+    }
+
+    static addNewCard(tableId, listId, title){
+        if(title !== ""){
+            var data = JSON.stringify({"name": title, "description": ""});
+            fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': RESTrequests.authorization
+                }
+            }).then(response => {
+                if(document.getElementById("Main")){
+                    ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+                }
+                ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+            });
+        }
+    }
+
+    static deleteCard(tableId, listId, cardId){
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+            if(document.getElementById("Main")){
+                ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+            }
+            ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+        });
     }
 }

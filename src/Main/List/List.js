@@ -14,6 +14,7 @@ export default class List extends React.Component{
         var table = RESTrequests.getCards(this.tableId, this.id)
         return React.createElement("div", {class: "listWrapper"}, 
                     React.createElement("div", {class: "listTitle"}, this.name),
-                    React.createElement("div", {class: "listContent"}, table));
+                    React.createElement("div", {class: "listContent"}, table),
+                    <AddNode tableId = {this.tableId} listId = {this.id} />);
     }
 }

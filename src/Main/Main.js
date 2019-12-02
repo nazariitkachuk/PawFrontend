@@ -10,6 +10,7 @@ export default class Main extends React.Component{
     render(){
         var lists = RESTrequests.getLists(this.id);
 
+        console.log("Main: " + this.id);
         
         return React.createElement("div", {id: "Main"},
                     React.createElement("div", {id: "changeNameWrapper"},
