@@ -1,5 +1,4 @@
 import React from 'react';
-import Table from './Table/Table.js'
 import AddNewTable from './AddNewTable/AddNewTable.js'
 import "./TableList.css";
 import RESTrequests from '../RESTrequests.js';

@@ -28,12 +28,14 @@
 
 .popupWrapper{
     background-color: white;
-    width: 20em;
-    margin: 5em auto auto auto;
+    width: 50%;
+    margin: 0 auto auto auto;
+    overflow-y: scroll;
 }
 
 .popup{
-    height: 15em;
+    max-height: 25em;
+    padding: 2em;
 }
 
 .popupLabel{
@@ -44,8 +46,7 @@
 .popupInput{
     padding: 0.3em;
     font-size: 1.2em;
-    min-width: 97%;
-    max-width: 97%;
+    min-width: 97.5%;
     resize: none;
 }
 

@@ -213,7 +213,7 @@ export default class RESTrequests{
 
             data.forEach(element => {
                 console.log(element);
-                cards.push(<Note tableId = {tableId} listId = {listId} id = {element.cardId}  title = {element.name} content = {element.description}/>);
+                cards.push(<Note tableId = {tableId} listId = {listId} id = {element.cardId}  title = {element.name} content = {element.description} />);
             });
         }
 
@@ -233,6 +233,27 @@ export default class RESTrequests{
                     'Authorization': RESTrequests.authorization
                 }
             }).then(response => {
+                if(document.getElementById("Main")){
+                    ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+                }
+                ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+            });
+        }
+    }
+
+    static editCard(tableId, listId, cardId, newTitle, newContent){
+
+        if(newTitle !== ""){
+            var data = JSON.stringify({"name": newTitle, "description": newContent});
+            fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId, {
+                method: 'PUT',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': RESTrequests.authorization
+                }
+            }).then(response => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
                 if(document.getElementById("Main")){
                     ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
                 }

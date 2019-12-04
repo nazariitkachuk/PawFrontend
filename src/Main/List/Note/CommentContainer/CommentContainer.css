@@ -1,0 +1,10 @@
+#newComment{
+    resize: none;
+    margin: 1em 0 0 0;
+    min-width: 98.5%;
+    height: 5em;
+}
+
+#addNewCommentButton{
+    width: 100%;
+}

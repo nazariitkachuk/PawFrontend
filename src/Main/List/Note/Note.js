@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CommentContainer from './CommentContainer/CommentContainer.js';
 import "./Note.css";
 import RESTrequests from '../../../RESTrequests';
 
@@ -11,22 +12,18 @@ export default class Note extends React.Component{
     title = this.props.title;
     content = this.props.content;
 
-    deleteNote(){
-
-    }
-
     editNote(id, noteTitle, noteContent){
 
         ReactDOM.render(
             React.createElement("form", {class: "popupWrapper"},
                 React.createElement("div", {class: "popup"},
-                    React.createElement("h1", null, "Note edition:"),
                     React.createElement("lable", {class: "popupLabel"}, "Title: "), 
                     React.createElement("textarea", {id: "inputTitle", class: "popupInput", type: "text"}),
                     React.createElement("lable", {class: "popupLabel"}, "Content: "), 
                     React.createElement("textarea", {id: "inputContent", class: "popupInput", type: "text"}),
                     React.createElement("input", {class: "popupButton", value: "Change", type: "button", onClick: () => this.changeButtonPopup()}),
-                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}))),
+                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}),
+                    React.createElement("div", {id: "commentsWrapper"}, <CommentContainer />))),
             document.getElementById('popupContainer')
         );
 
@@ -39,10 +36,19 @@ export default class Note extends React.Component{
     }
 
     changeButtonPopup(){
-        
+        RESTrequests.editCard(this.tableId, this.listId, 
+            this.id, document.getElementById("inputTitle").value,
+            document.getElementById("inputContent").value);
     }
 
     render(){
+
+        this.tableId = this.props.tableId;
+        this.listId = this.props.listId;
+        this.id = this.props.id;
+        this.title = this.props.title;
+        this.content = this.props.content;
+
         return React.createElement("div", {class: "noteWrapper"}, 
                     React.createElement("div", {class: "noteTitle"}, this.title,
                         React.createElement("div", {class: "deleteAndEditWrapper"},
