@@ -8,6 +8,8 @@ import Main from './Main/Main.js';
 import List from './Main/List/List.js';
 import Table from './TableList/Table/Table.js';
 import Note from './Main/List/Note/Note.js';
+import Comment from './Main/List/Note/CommentContainer/Comment/Comment.js';
+import CommentContainer from './Main/List/Note/CommentContainer/CommentContainer.js';
 
 export default class RESTrequests{
 
@@ -275,5 +277,109 @@ export default class RESTrequests{
             }
             ReactDOM.render(<Main />, document.getElementById("MainContainer"));
         });
+    }
+
+    static getComments(tableId, listId, cardId){
+        var comments = [];
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/comment', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', RESTrequests.authorization);
+        
+        request.onload = function(){
+            var data = JSON.parse(this.responseText);
+
+            data.forEach(element => {
+                console.log(element);
+                comments.push(<Comment tableId = {tableId} listId = {listId} 
+                    cardId = {cardId}  id = {element.commentId}
+                    user = {element.authorName} content = {element.content} />);
+            });
+        }
+
+        request.send();
+
+        return comments;
+    }
+
+    static addNewComments(tableId, listId, cardId, content){
+
+        if(content !== ""){
+            var data = JSON.stringify({"content": content});
+
+            fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/comment', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': RESTrequests.authorization
+                }
+            }).then(response => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
+
+                ReactDOM.render(
+                    React.createElement("form", {class: "popupWrapper"},
+                        React.createElement("div", {class: "popup"},
+                            React.createElement("div", {class: "popupButton labelOnHover",
+                                onClick: () => ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"))}, "Back"),
+                            React.createElement("div", {id: "commentsWrapper"}, 
+                                <CommentContainer tableId = {tableId} listId = {listId} cardId = {cardId} />))
+                        ),
+                    document.getElementById('popupContainer')
+                );
+            });
+        }
+    }
+
+    static deleteComment(tableId, listId, cardId, commentId){
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/comment/' + commentId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+            ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
+
+            ReactDOM.render(
+                React.createElement("form", {class: "popupWrapper"},
+                    React.createElement("div", {class: "popup"},
+                        React.createElement("div", {class: "popupButton labelOnHover",
+                            onClick: () => ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"))}, "Back"),
+                        React.createElement("div", {id: "commentsWrapper"}, 
+                            <CommentContainer tableId = {tableId} listId = {listId} cardId = {cardId} />))
+                    ),
+                document.getElementById('popupContainer')
+            );
+        });
+    }
+
+    static editComment(tableId, listId, cardId, commentId, content){
+        if(content !== ""){
+            var data = JSON.stringify({"content": content});
+
+            fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/comment/' + commentId, {
+                method: 'PUT',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': RESTrequests.authorization
+                }
+            }).then(response => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
+
+                ReactDOM.render(
+                    React.createElement("form", {class: "popupWrapper"},
+                        React.createElement("div", {class: "popup"},
+                            React.createElement("div", {class: "popupButton labelOnHover",
+                                onClick: () => ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"))}, "Back"),
+                            React.createElement("div", {id: "commentsWrapper"}, 
+                                <CommentContainer tableId = {tableId} listId = {listId} cardId = {cardId} />))
+                        ),
+                    document.getElementById('popupContainer')
+                );
+            });
+        }
     }
 }

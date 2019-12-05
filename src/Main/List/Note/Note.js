@@ -22,13 +22,24 @@ export default class Note extends React.Component{
                     React.createElement("lable", {class: "popupLabel"}, "Content: "), 
                     React.createElement("textarea", {id: "inputContent", class: "popupInput", type: "text"}),
                     React.createElement("input", {class: "popupButton", value: "Change", type: "button", onClick: () => this.changeButtonPopup()}),
-                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}),
-                    React.createElement("div", {id: "commentsWrapper"}, <CommentContainer />))),
+                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}))),
             document.getElementById('popupContainer')
         );
 
         document.getElementById('inputTitle').value = noteTitle;
         document.getElementById('inputContent').value = noteContent;
+    }
+
+    comments(){
+        ReactDOM.render(
+            React.createElement("form", {class: "popupWrapper"},
+                React.createElement("div", {class: "popup"},
+                    React.createElement("div", {class: "popupButton labelOnHover", onClick: () => this.cancelButtonPopup()}, "Back"),
+                    React.createElement("div", {id: "commentsWrapper"}, 
+                        <CommentContainer tableId = {this.tableId} listId = {this.listId} cardId = {this.id} />))
+                ),
+            document.getElementById('popupContainer')
+        );
     }
 
     cancelButtonPopup(){
@@ -52,11 +63,12 @@ export default class Note extends React.Component{
         return React.createElement("div", {class: "noteWrapper"}, 
                     React.createElement("div", {class: "noteTitle"}, this.title,
                         React.createElement("div", {class: "deleteAndEditWrapper"},
-                            React.createElement("label", {class: "noteDeleteLabel labelOnHover",
-                                onClick: () => RESTrequests.deleteCard(this.tableId, this.listId, this.id)}, "X"),
-                            React.createElement("br", null, null),
                             React.createElement("label", {class: "noteEditLabel labelOnHover", 
-                                onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"))),
+                                onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"),
+                            React.createElement("label", {class: "noteEditLabel labelOnHover", 
+                                onClick: () => this.comments()}, "✉️"),
+                            React.createElement("label", {class: "noteDeleteLabel labelOnHover",
+                                onClick: () => RESTrequests.deleteCard(this.tableId, this.listId, this.id)}, "X"),)),
                     React.createElement("div", {class: "noteContent"}, this.content));
     }
 }

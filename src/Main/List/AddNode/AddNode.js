@@ -11,6 +11,7 @@ export default class AddNode extends React.Component{
         return React.createElement("div", {class: "addNewNodeWrapper"},
                     React.createElement("input", {type: "text", id: "newNodeTitleInput"}),
                     React.createElement("input", {type: "submit", value: "Add", id: "newNodeAddButton", 
-                        onClick: () => RESTrequests.addNewCard(this.tableId, this.listId, document.getElementById("newNodeTitleInput").value) }));
+                        onClick: () => RESTrequests.addNewCard(this.tableId, 
+                            this.listId, document.getElementById("newNodeTitleInput").value) }));
     }
 }
