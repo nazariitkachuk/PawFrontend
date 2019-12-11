@@ -62,6 +62,9 @@ export default class RESTrequests{
     }
 
     static addNewTable(tableName){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         if(tableName !== ""){
             var data = JSON.stringify({"name": tableName});
 
@@ -82,6 +85,9 @@ export default class RESTrequests{
     }
 
     static updateTableName(tableId, tableNewName){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         if(tableNewName !== ""){
             var data = JSON.stringify({"tableId": tableId, "name": tableNewName});
 
@@ -111,6 +117,9 @@ export default class RESTrequests{
     }
 
     static addNewList(tableId, listName){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         if(listName !== ""){
             var data = JSON.stringify({"name": listName});
 
@@ -131,6 +140,9 @@ export default class RESTrequests{
     }
 
     static getTables(){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
 
         var tables = [];
 
@@ -167,6 +179,9 @@ export default class RESTrequests{
     }
 
     static getLists(tableId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
 
         var lists = [];
 
@@ -203,6 +218,9 @@ export default class RESTrequests{
     }
 
     static getCards(tableId, listId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         var cards = [];
 
         var request = new XMLHttpRequest();
@@ -225,6 +243,9 @@ export default class RESTrequests{
     }
 
     static addNewCard(tableId, listId, title){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         if(title !== ""){
             var data = JSON.stringify({"name": title, "description": ""});
             fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card', {
@@ -244,6 +265,8 @@ export default class RESTrequests{
     }
 
     static editCard(tableId, listId, cardId, newTitle, newContent){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
 
         if(newTitle !== ""){
             var data = JSON.stringify({"name": newTitle, "description": newContent});
@@ -265,6 +288,9 @@ export default class RESTrequests{
     }
 
     static deleteCard(tableId, listId, cardId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId, {
             method: 'DELETE',
             headers: {
@@ -280,6 +306,9 @@ export default class RESTrequests{
     }
 
     static getComments(tableId, listId, cardId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         var comments = [];
 
         var request = new XMLHttpRequest();
@@ -304,6 +333,8 @@ export default class RESTrequests{
     }
 
     static addNewComments(tableId, listId, cardId, content){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
 
         if(content !== ""){
             var data = JSON.stringify({"content": content});
@@ -333,6 +364,9 @@ export default class RESTrequests{
     }
 
     static deleteComment(tableId, listId, cardId, commentId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/comment/' + commentId, {
             method: 'DELETE',
             headers: {
@@ -356,6 +390,9 @@ export default class RESTrequests{
     }
 
     static editComment(tableId, listId, cardId, commentId, content){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
         if(content !== ""){
             var data = JSON.stringify({"content": content});
 
