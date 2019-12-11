@@ -26,7 +26,7 @@ export default class RESTrequests{
             }
         }).then(response =>{
             RESTrequests.authorization = response.headers.get('Authorization');
-            console.log(RESTrequests.authorization);
+            document.cookie = "authorization=" + RESTrequests.authorization;
             response.json().then(result =>{
                 if(result.httpCode === 200){
                     ReactDOM.unmountComponentAtNode(document.getElementById("root"));
@@ -380,6 +380,38 @@ export default class RESTrequests{
                     document.getElementById('popupContainer')
                 );
             });
+        }
+    }
+
+    static checkIfAuthOk(token){
+
+        var status;
+        
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', token);
+
+        request.onload = function(){
+
+            status = request.status;
+            if(status === 401){
+                ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+                ReactDOM.render(
+                    <LoginView />,
+                    document.getElementById('root')
+                );
+            }else{
+                RESTrequests.authorization = token;
+            }
+        };
+
+        request.send();
+
+        if(status === 200){
+            return true;
+        }else{
+            return false;
         }
     }
 }
