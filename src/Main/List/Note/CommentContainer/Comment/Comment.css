@@ -1,0 +1,21 @@
+.commentWrapper{
+    margin: 1em 0 0 0 ;
+}
+
+.cardButtons{
+    float: right;
+    width: 6em;
+}
+
+#userLabel{
+    margin: 0 1em 0 1em;
+    font-size: 1.3em;
+}
+
+#commentContent{
+    resize: none;
+    font-size: 1.2em;
+    min-width: 98.5%;
+    height: 5em;
+
+}

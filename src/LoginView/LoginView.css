@@ -1,0 +1,26 @@
+.loginWrapper{
+    width: fit-content;
+    display: grid;
+    margin: auto;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, .32);
+}
+
+.inputText{
+    text-align: center;
+}
+
+.input{
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+
+#labelSignUp{
+    width: 95%;
+    text-align: right;
+    font-size: 1.3em;
+}
+
+#labelSignUp:hover{
+    color: red;
+}

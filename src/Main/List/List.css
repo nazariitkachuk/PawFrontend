@@ -1,4 +1,4 @@
-.list{
+.listWrapper{
     float: left;
     min-width: 200px;
     border: solid;
@@ -8,4 +8,12 @@
     background-color:  rgb(200, 200, 200);
     word-break: break-word;
     white-space: normal;
+}
+
+.listTitle{
+    text-align: center;
+    margin: 0.1em;
+    padding: 0.5em;
+    font-size: 1.3em;
+    background-color:  rgb(155, 155, 155);
 }

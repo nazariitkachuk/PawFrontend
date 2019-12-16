@@ -3,3 +3,11 @@
     padding: 5px;
     margin: 5px;
 }
+
+.newListNameClass{
+    height: fit-content;
+}
+
+.newListNameSubmitButtonClass{
+    height: fit-content;
+}
