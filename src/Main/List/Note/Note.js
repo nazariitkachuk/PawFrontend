@@ -60,8 +60,10 @@ export default class Note extends React.Component{
         this.title = this.props.title;
         this.content = this.props.content;
 
-        return React.createElement("div", {class: "noteWrapper"}, 
-                    React.createElement("div", {class: "noteTitle"}, this.title,
+        return React.createElement("div", {class: "noteWrapper"},
+                    React.createElement("div", {class: "noteTitle"}, 
+                        React.createElement("div", {class: "tag"}, "backend"), 
+                        this.title,
                         React.createElement("div", {class: "deleteAndEditWrapper"},
                             React.createElement("label", {class: "noteEditLabel labelOnHover", 
                                 onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"),

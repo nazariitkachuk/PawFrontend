@@ -57,6 +57,14 @@
     margin-top: -5px;
 }
 
+.tag{
+    height: 1em;
+    font-size: 0.7em;
+    background-color: green;
+    margin: 0.1em;
+    text-align: center;
+}
+
 #inputContent{
     height: 8em;
 }
