@@ -58,11 +58,20 @@
 }
 
 .tag{
-    height: 1em;
-    font-size: 0.7em;
-    background-color: green;
-    margin: 0.1em;
     text-align: center;
+}
+
+.tag .labelWrapper{
+    font-size: 0.5em;
+    width: 95%;
+}
+
+.tag .labelWrapper .labelColor{
+    height: 0.5em;
+    font-size: 1em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 #inputContent{

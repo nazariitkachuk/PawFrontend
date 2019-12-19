@@ -10,6 +10,7 @@ import Table from './TableList/Table/Table.js';
 import Note from './Main/List/Note/Note.js';
 import Comment from './Main/List/Note/CommentContainer/Comment/Comment.js';
 import CommentContainer from './Main/List/Note/CommentContainer/CommentContainer.js';
+import Tag from './Main/Tag/Tag.js';
 
 export default class RESTrequests{
 
@@ -418,6 +419,115 @@ export default class RESTrequests{
                 );
             });
         }
+    }
+
+    static getTags(tableId, listId, cardId, mode){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        var tags = [];
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table/' + tableId + '/label', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', RESTrequests.authorization);
+        
+        request.onload = function(){
+            var data = JSON.parse(this.responseText);
+
+            data.forEach(element => {
+                tags.push(<Tag tableId={tableId} listId={listId} cardId={cardId} id={element.colourId} content={element.colourName} 
+                    color={element.colourHex} mode={mode}/>);
+            });
+        };
+
+        request.send();
+
+        return tags;
+    }
+    
+
+    static getTagsForCard(tableId, listId, cardId, mode){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        var tagsList = this.getTags(tableId, listId, cardId, mode);
+        var tags = [];
+
+        console.log(tagsList);
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId, false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', RESTrequests.authorization);
+        
+        request.onload = function(){
+            var data = JSON.parse(this.responseText);
+            
+            if(data !== undefined){
+                data.labelList.forEach(element => {
+                    tagsList.forEach(e =>{
+                        if(element === e.props.id){
+                            tags.push(e);
+                        }
+                    });
+                    
+                });
+            }
+        }
+
+        request.send();
+
+        return tags;
+    }
+
+    static addTagToCard(tableId, listId, cardId, labelId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/label/' + labelId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+
+        });
+    }
+
+    static removeTagFromCard(tableId, listId, cardId, labelId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/label/' + labelId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+
+        });
+    }
+
+    static newName(tableId, id, newName){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/label/' + id + "/" + newName, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+
+        });
+    }
+
+    static addTag(){
+
     }
 
     static checkIfAuthOk(token){

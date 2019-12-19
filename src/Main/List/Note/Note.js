@@ -13,7 +13,9 @@ export default class Note extends React.Component{
     content = this.props.content;
 
     editNote(id, noteTitle, noteContent){
+        ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
 
+        var labelTable = RESTrequests.getTagsForCard(this.tableId, this.listId, this.id);
         ReactDOM.render(
             React.createElement("form", {class: "popupWrapper"},
                 React.createElement("div", {class: "popup"},
@@ -22,7 +24,17 @@ export default class Note extends React.Component{
                     React.createElement("lable", {class: "popupLabel"}, "Content: "), 
                     React.createElement("textarea", {id: "inputContent", class: "popupInput", type: "text"}),
                     React.createElement("input", {class: "popupButton", value: "Change", type: "button", onClick: () => this.changeButtonPopup()}),
-                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}))),
+                    React.createElement("input", {class: "popupButton", value: "Cancel", type: "button", onClick: () => this.cancelButtonPopup()}),
+                    React.createElement("div", {class: "cardLablesWrapper"},
+                        React.createElement("div", {class: "labelsWrapper"},
+                            labelTable),
+                            React.createElement("input", {class: "addLabelToCard", 
+                                value: "Add Label", type: "button", 
+                                onClick: () => this.addLable(id, noteTitle, noteContent)}),
+                            React.createElement("input", {class: "addLabelToCard", 
+                                value: "Remove Label", type: "button", 
+                                onClick: () => this.removeLable(id, noteTitle, noteContent)})
+                    ))),
             document.getElementById('popupContainer')
         );
 
@@ -36,8 +48,36 @@ export default class Note extends React.Component{
                 React.createElement("div", {class: "popup"},
                     React.createElement("div", {class: "popupButton labelOnHover", onClick: () => this.cancelButtonPopup()}, "Back"),
                     React.createElement("div", {id: "commentsWrapper"}, 
-                        <CommentContainer tableId = {this.tableId} listId = {this.listId} cardId = {this.id} />))
+                       <CommentContainer tableId = {this.tableId} listId = {this.listId} cardId = {this.id} />))
                 ),
+            document.getElementById('popupContainer')
+        );
+    }
+
+    addLable(id, noteTitle, noteContent){
+        ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
+
+        var labelTable = RESTrequests.getTags(this.tableId, this.listId, this.id, "add");
+        ReactDOM.render(
+            React.createElement("form", {class: "popupWrapper"},
+            React.createElement("div", {class: "popupButton labelOnHover", onClick: () => this.editNote(id, noteTitle, noteContent)}, "Back"),
+                React.createElement("div", {class: "popup"},
+                    React.createElement("div", {class: "labelsWrapper"},
+                        labelTable))),
+            document.getElementById('popupContainer')
+        );
+    }
+
+    removeLable(id, noteTitle, noteContent){
+        ReactDOM.unmountComponentAtNode(document.getElementById("popupContainer"));
+
+        var labelTable = RESTrequests.getTagsForCard(this.tableId, this.listId, this.id, "remove");
+        ReactDOM.render(
+            React.createElement("form", {class: "popupWrapper"},
+            React.createElement("div", {class: "popupButton labelOnHover", onClick: () => this.editNote(id, noteTitle, noteContent)}, "Back"),
+                React.createElement("div", {class: "popup"},
+                    React.createElement("div", {class: "labelsWrapper"},
+                        labelTable))),
             document.getElementById('popupContainer')
         );
     }
@@ -60,9 +100,10 @@ export default class Note extends React.Component{
         this.title = this.props.title;
         this.content = this.props.content;
 
+        var tags = RESTrequests.getTagsForCard(this.tableId, this.listId, this.id);
         return React.createElement("div", {class: "noteWrapper"},
-                    React.createElement("div", {class: "noteTitle"}, 
-                        React.createElement("div", {class: "tag"}, "backend"), 
+                    React.createElement("div", {class: "noteTitle"},
+                        React.createElement("div", {class: "tag"}, tags),
                         this.title,
                         React.createElement("div", {class: "deleteAndEditWrapper"},
                             React.createElement("label", {class: "noteEditLabel labelOnHover", 
