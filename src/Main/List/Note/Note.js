@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import CommentContainer from './CommentContainer/CommentContainer.js';
 import "./Note.css";
 import RESTrequests from '../../../RESTrequests';
+import Dropzone from 'react-dropzone';
+
 
 export default class Note extends React.Component{
 
@@ -11,6 +13,9 @@ export default class Note extends React.Component{
     id = this.props.id;
     title = this.props.title;
     content = this.props.content;
+    filename = this.props.filename;
+    file = this.props.file;
+    attachmentId = this.props.attachmentId;
 
     editNote(id, noteTitle, noteContent){
 
@@ -52,6 +57,11 @@ export default class Note extends React.Component{
             document.getElementById("inputContent").value);
     }
 
+    onDrop = (acceptedFiles) => {
+        console.log(acceptedFiles);
+        RESTrequests.addAttachment(this.tableId,this.listId,this.id,this.filename,this.file);
+    }
+
     render(){
 
         this.tableId = this.props.tableId;
@@ -69,6 +79,21 @@ export default class Note extends React.Component{
                                 onClick: () => this.comments()}, "✉️"),
                             React.createElement("label", {class: "noteDeleteLabel labelOnHover",
                                 onClick: () => RESTrequests.deleteCard(this.tableId, this.listId, this.id)}, "X"),)),
+
+            <div className="text-center mt-5">
+                <Dropzone onDrop={this.onDrop}
+                multiple={false}
+                >
+                    {({getRootProps, getInputProps}) => (
+                        <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            Upload File
+                        </div>
+                    )}
+                </Dropzone>
+            </div>,
+            React.createElement("label", {class: "noteEditLabel labelOnHover",
+                onClick: () => RESTrequests.deleteAttachment(this.tableId, this.listId, this.id,this.attachmentId)}, "Delete File"),
                     React.createElement("div", {class: "noteContent"}, this.content));
     }
 }

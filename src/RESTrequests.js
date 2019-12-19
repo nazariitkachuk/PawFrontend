@@ -305,6 +305,41 @@ export default class RESTrequests{
         });
     }
 
+    static addAttachment(tableId, listId, cardId, fileName, file){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+        var data = JSON.stringify({"fileName": fileName, "file": file});
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/attachment', {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+            if(document.getElementById("Main")){
+                ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+            }
+            ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+        });
+    }
+    static deleteAttachment(tableId, listId, cardId, attachmentId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + '/attachment' + attachmentId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+            if(document.getElementById("Main")){
+                ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+            }
+            ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+        });
+    }
+
     static getComments(tableId, listId, cardId){
         if(!this.checkIfAuthOk(RESTrequests.authorization))
             return;
