@@ -186,19 +186,6 @@ export default class RESTrequests{
 
         var lists = [];
 
-        // fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': RESTrequests.authorization
-        //     }
-        // }).then(response => response.json().then(result => {
-        //     result.forEach(element => {
-        //         lists.push(<List id = {element.id} name = {element.name} />)
-        //     });
-        //     return lists;
-        // }))
-
         var request = new XMLHttpRequest();
         request.open('GET', 'https://pawbackend.herokuapp.com/table/'+tableId+'/list', false);
         request.setRequestHeader('Content-Type', 'application/json');
@@ -210,6 +197,33 @@ export default class RESTrequests{
             data.forEach(element => {
                 console.log(element);
                 lists.push(<List tableId = {tableId} id = {element.listId} name = {element.name} />)
+            });
+        }
+
+        request.send();
+
+        return lists;
+    }
+
+    static getListsArch(tableId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+
+        var lists = [];
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://pawbackend.herokuapp.com/table/'+tableId+'/card/archive', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Authorization', RESTrequests.authorization);
+        
+        request.onload = function(){
+            var data = JSON.parse(this.responseText)
+
+            data.forEach(element => {
+                console.log(element);
+                lists.push(<Note tableId = {tableId} listId = {element.belongsToListId} 
+                    id = {element.cardId}  title = {element.name} content = {element.description} />)
             });
         }
 
@@ -305,6 +319,26 @@ export default class RESTrequests{
             ReactDOM.render(<Main />, document.getElementById("MainContainer"));
         });
     }
+
+    static archCard(tableId, listId, cardId){
+        if(!this.checkIfAuthOk(RESTrequests.authorization))
+            return;
+
+        fetch('https://pawbackend.herokuapp.com/table/' + tableId + '/list/' + listId + '/card/' + cardId + "/archive", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': RESTrequests.authorization
+            }
+        }).then(response => {
+            if(document.getElementById("Main")){
+                ReactDOM.unmountComponentAtNode(document.getElementById("Main"));
+            }
+            ReactDOM.render(<Main />, document.getElementById("MainContainer"));
+        });
+    }
+
+
 
     static getComments(tableId, listId, cardId){
         if(!this.checkIfAuthOk(RESTrequests.authorization))

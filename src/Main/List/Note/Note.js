@@ -100,7 +100,11 @@ export default class Note extends React.Component{
         this.title = this.props.title;
         this.content = this.props.content;
 
-        var tags = RESTrequests.getTagsForCard(this.tableId, this.listId, this.id);
+        var tags = [];
+        // if(this.listId !== "none"){
+            tags = RESTrequests.getTagsForCard(this.tableId, this.listId, this.id); 
+        // }
+
         return React.createElement("div", {class: "noteWrapper"},
                     React.createElement("div", {class: "noteTitle"},
                         React.createElement("div", {class: "tag"}, tags),
@@ -110,6 +114,8 @@ export default class Note extends React.Component{
                                 onClick: () => this.editNote(this.id, this.title, this.content)}, "✎"),
                             React.createElement("label", {class: "noteEditLabel labelOnHover", 
                                 onClick: () => this.comments()}, "✉️"),
+                            React.createElement("label", {class: "noteDeleteLabel labelOnHover",
+                                onClick: () => RESTrequests.archCard(this.tableId, this.listId, this.id)}, "A"),
                             React.createElement("label", {class: "noteDeleteLabel labelOnHover",
                                 onClick: () => RESTrequests.deleteCard(this.tableId, this.listId, this.id)}, "X"),)),
                     React.createElement("div", {class: "noteContent"}, this.content));
