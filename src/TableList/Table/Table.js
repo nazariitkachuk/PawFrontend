@@ -4,7 +4,7 @@ import Main from '../../Main/Main.js';
 import "./Table.css";
 
 export default class Table extends React.Component{
-
+    //sas
     id = this.props.id;
     name = this.props.name;
 
